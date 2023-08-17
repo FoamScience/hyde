@@ -210,6 +210,12 @@ static cl::opt<std::string> IndexFilename(
     cl::desc("Provide optional index filename instead of index.md"),
     cl::cat(MyToolCategory));
 
+static cl::opt<bool> IgnoreDeprecationWarnings(
+    "ignore-deprecation-warnings",
+    cl::desc("Do not consider compiler deprecation warnings as errors"),
+    cl::cat(MyToolCategory),
+    cl::ValueDisallowed);
+
 static cl::extrahelp HydeHelp(
     "\nThis tool parses the header source(s) using Clang. To pass arguments to the\n"
     "compiler (e.g., include directories), append them after the `--` token on the\n"
@@ -593,10 +599,13 @@ int main(int argc, const char** argv) try {
     // Enables some checks built in to the clang driver to ensure comment
     // documentation matches whatever it is documenting. We also make it
     // an error because the documentation should be accurate when generated.
-    arguments.emplace_back("-Werror=documentation");
-    arguments.emplace_back("-Werror=documentation-deprecated-sync");
-    arguments.emplace_back("-Werror=documentation-html");
-    arguments.emplace_back("-Werror=documentation-pedantic");
+    // --ignore-deprecation-warnings option skips this
+    if (!IgnoreDeprecationWarnings) {
+        arguments.emplace_back("-Werror=documentation");
+        arguments.emplace_back("-Werror=documentation-deprecated-sync");
+        arguments.emplace_back("-Werror=documentation-html");
+        arguments.emplace_back("-Werror=documentation-pedantic");
+    }
 
     // Add hyde-specific commands to the Clang Doxygen parser. For hyde, we'll require the first
     // word to be the hyde field (e.g., `@hyde-owner fosterbrereton`.) Because the Doxygen parser
