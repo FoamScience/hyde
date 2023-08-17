@@ -662,7 +662,9 @@ int main(int argc, const char** argv) try {
         hyde::emit_options emit_options;
         emit_options._tested_by = TestedBy;
         emit_options._ignore_extraneous_files = IgnoreExtraneousFiles;
-        emit_options._index_filename = IndexFilename;
+        if (!IndexFilename.empty()) {
+            emit_options._index_filename = IndexFilename;
+        }
 
         auto out_emitted = hyde::json::object();
         output_yaml(std::move(result), std::move(src_root), std::move(dst_root), out_emitted,
