@@ -40,6 +40,8 @@ bool yaml_function_emitter::do_merge(const std::string& filepath,
             failure |= check_editable_scalar(filepath, have, expected, nodepath, out_merged,
                                              "description");
             failure |= check_scalar(filepath, have, expected, nodepath, out_merged,
+                                    "key");
+            failure |= check_scalar(filepath, have, expected, nodepath, out_merged,
                                     "signature_with_names");
 
             if (!has_json_flag(expected, "is_ctor") && !has_json_flag(expected, "is_dtor")) {
