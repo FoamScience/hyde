@@ -205,6 +205,11 @@ static cl::opt<bool> IgnoreExtraneousFiles(
     cl::cat(MyToolCategory),
     cl::ValueDisallowed);
 
+static cl::opt<std::string> IndexFilename(
+    "index-filename",
+    cl::desc("Provide optional index filename instead of index.md"),
+    cl::cat(MyToolCategory));
+
 static cl::extrahelp HydeHelp(
     "\nThis tool parses the header source(s) using Clang. To pass arguments to the\n"
     "compiler (e.g., include directories), append them after the `--` token on the\n"
@@ -648,6 +653,7 @@ int main(int argc, const char** argv) try {
         hyde::emit_options emit_options;
         emit_options._tested_by = TestedBy;
         emit_options._ignore_extraneous_files = IgnoreExtraneousFiles;
+        emit_options._index_filename = IndexFilename;
 
         auto out_emitted = hyde::json::object();
         output_yaml(std::move(result), std::move(src_root), std::move(dst_root), out_emitted,

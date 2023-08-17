@@ -29,7 +29,6 @@ static constexpr char const* tag_value_missing_k = "__MISSING__";
 static constexpr char const* tag_value_optional_k = "__OPTIONAL__";
 static constexpr char const* tag_value_deprecated_k = "__DEPRECATED__";
 static constexpr char const* tag_value_inlined_k = "__INLINED__";
-static constexpr char const* index_filename_k = "index.md";
 
 /**************************************************************************************************/
 
@@ -57,6 +56,7 @@ static inline bool is_tag(const std::string& s) { return s.substr(0, 2) == "__";
 struct emit_options {
     attribute_category _tested_by{attribute_category::disabled};
     bool _ignore_extraneous_files{false};
+    std::string _index_filename{"index.md"};
 };
 
 /**************************************************************************************************/

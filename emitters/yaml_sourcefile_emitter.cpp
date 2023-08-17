@@ -46,7 +46,7 @@ bool yaml_sourcefile_emitter::emit(const json& j, json& out_emitted, const json&
 
     _sub_dst = dst_path(j, sub_path);
 
-    return reconcile(std::move(node), _dst_root, _sub_dst / index_filename_k, out_emitted);
+    return reconcile(std::move(node), _dst_root, _sub_dst / _options._index_filename, out_emitted);
 }
 
 /**************************************************************************************************/

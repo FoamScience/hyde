@@ -1159,7 +1159,7 @@ std::filesystem::path yaml_base_emitter::directory_mangle(std::filesystem::path 
 /**************************************************************************************************/
 
 bool yaml_base_emitter::create_directory_stub(std::filesystem::path p) {
-    auto stub_name = p / index_filename_k;
+    auto stub_name = p / _options._index_filename;
 
     if (exists(stub_name)) return false;
 

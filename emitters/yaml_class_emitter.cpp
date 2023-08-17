@@ -109,7 +109,7 @@ bool yaml_class_emitter::emit(const json& j, json& out_emitted, const json& inhe
     auto dst = dst_path(j, static_cast<const std::string&>(j["name"]));
 
     bool failure =
-        reconcile(std::move(node), _dst_root, std::move(dst) / index_filename_k, out_emitted);
+        reconcile(std::move(node), _dst_root, std::move(dst) / _options._index_filename, out_emitted);
 
     const auto& methods = j["methods"];
     yaml_function_emitter function_emitter(_src_root, _dst_root, _mode, _options, true);

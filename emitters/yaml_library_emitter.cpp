@@ -45,7 +45,7 @@ bool yaml_library_emitter::emit(const json& j, json& out_emitted, const json&) {
     node["hyde"]["tab"] = tag_value_missing_k;
     node["hyde"]["short_title"] = tag_value_optional_k;
 
-    return reconcile(std::move(node), _dst_root, _dst_root / index_filename_k, out_emitted);
+    return reconcile(std::move(node), _dst_root, _dst_root / _options._index_filename, out_emitted);
 }
 
 /**************************************************************************************************/
