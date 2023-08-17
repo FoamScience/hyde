@@ -154,6 +154,7 @@ bool yaml_function_emitter::emit(const json& jsn, json& out_emitted, const json&
             }
         }
 
+        destination["key"] = overload["signature"];
         destination["signature_with_names"] = overload["signature_with_names"];
 
         // description is now optional when there is a singular variant, or when the overload
