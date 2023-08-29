@@ -42,6 +42,7 @@ bool yaml_class_emitter::do_merge(const std::string& filepath,
                const std::string& nodepath, json& out_merged) {
             bool failure{false};
 
+            failure |= check_scalar(filepath, have, expected, nodepath, out_merged, "key");
             failure |= check_scalar(filepath, have, expected, nodepath, out_merged, "type");
             failure |= check_editable_scalar(filepath, have, expected, nodepath, out_merged,
                                              "description");
@@ -93,6 +94,7 @@ bool yaml_class_emitter::emit(const json& j, json& out_emitted, const json& inhe
         for (const auto& field : j["fields"]) {
             const std::string& key = field["name"];
             auto& field_node = node["hyde"]["fields"][key];
+            field_node["key"] = key;
             insert_annotations(field, field_node);
             insert_doxygen(field, field_node);
 
@@ -101,7 +103,6 @@ bool yaml_class_emitter::emit(const json& j, json& out_emitted, const json& inhe
                 field_node.count("inline") && field_node["inline"].count("description");
             field_node["description"] =
                 inline_description_exists ? tag_value_inlined_k : tag_value_missing_k;
-            field_node["key"] = key;
         }
     }
 

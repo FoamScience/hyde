@@ -322,6 +322,7 @@ void yaml_base_emitter::insert_typedefs(const json& j, json& node, const json& i
             type_node["description"] = has_inline_field(type_node, "description") ?
                                            tag_value_inlined_k :
                                            tag_value_missing_k;
+            type_node["key"] = type_def["name"];
         }
     }
 
@@ -337,6 +338,7 @@ void yaml_base_emitter::insert_typedefs(const json& j, json& node, const json& i
             type_node["description"] = has_inline_field(type_node, "description") ?
                                            tag_value_inlined_k :
                                            tag_value_missing_k;
+            type_node["key"] = type_def["name"];
         }
     }
 }
@@ -365,6 +367,7 @@ bool yaml_base_emitter::check_typedefs(const std::string& filepath,
             bool failure{false};
 
             failure |= check_scalar(filepath, have, expected, nodepath, out_merged, "name");
+            failure |= check_scalar(filepath, have, expected, nodepath, out_merged, "key");
             failure |= check_scalar(filepath, have, expected, nodepath, out_merged, "definition");
             failure |= check_editable_scalar(filepath, have, expected, nodepath, out_merged,
                                              "description");
